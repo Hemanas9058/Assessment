@@ -1,6 +1,7 @@
 # functions go here
 
-# makes sure answer isnt blank
+
+# makes sure answer isn't blank
 def not_blank(question, error):
 
     valid = False
@@ -13,7 +14,8 @@ def not_blank(question, error):
 
         return response
 
-# checks that number is more than or equal to 2
+
+# checks that number is more than or equal to 5
 def num_check(question, error, num_type):
     valid = False
     while not valid:
@@ -21,7 +23,7 @@ def num_check(question, error, num_type):
         try:
             response = num_type(input(question))
 
-            if response < 2:
+            if response < 5:
                 print(error)
             else:
                 return response
@@ -31,8 +33,8 @@ def num_check(question, error, num_type):
 
 
 # main routine goes here
-get_budget = num_check ("What is your budget in dollars? ",
-                        "Please enter a number that is 2 or more\n", 
-                        int)
+get_budget = num_check("What is your budget in dollars? ",
+                       "Please enter a number that is 5 or more\n",
+                       float)
 
 print("You said", get_budget)

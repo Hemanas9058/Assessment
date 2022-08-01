@@ -1,5 +1,4 @@
-# Functions go here
-import pandas
+# functions go here
 
 
 # checks that questions are not left blank and repeat question
