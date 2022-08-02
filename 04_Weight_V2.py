@@ -72,6 +72,20 @@ budget = get_budget("What is your budget in dollars? ",
                     "Please enter a number that is 5 or more\n", float)
 print("Your budget is", "${:.2f}".format(budget))
 
+# set up lists
+item_list = []
+weight_list = []
+cost_list = []
+unitprice_list = []
+
+variable_dict = {
+        'Item': item_list,
+        'Weight': weight_list,
+        'Cost': cost_list,
+        'Unit Price': unitprice_list,
+    }
+
+
 item = ""
 
 while item != "xxx":
@@ -95,3 +109,18 @@ while item != "xxx":
     # test unit price calculation
     unit_price = get_cost / (weight_grams / 1000)
     print("The unit price is", "${:.2f}".format(unit_price))
+
+    # add item name, weight, price, and unit price to lists
+    item_list.append(item)
+    weight_list.append(weight_grams)
+    cost_list.append(get_cost)
+    unitprice_list.append(unit_price)
+
+Table = pandas.DataFrame(variable_dict)
+Table = Table.set_index('Item')
+
+pandas.set_option('display.max_columns', None)
+
+print()
+print(Table[['Item', 'Weight', 'Cost',
+             'Unit Price']])
