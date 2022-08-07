@@ -66,6 +66,9 @@ def get_grams(question, error, num_type):
         except ValueError:
             print(error)
 
+def currency(x):
+    return "${:.2f}".format(x)
+
 
 # Main routine goes here
 budget = get_budget("What is your budget in dollars? ",
@@ -80,7 +83,7 @@ unitprice_list = []
 
 variable_dict = {
         'Item': item_list,
-        'Weight': weight_list,
+        'Weight (g)': weight_list,
         'Cost': cost_list,
         'Unit Price': unitprice_list,
     }
@@ -116,11 +119,21 @@ while item != "xxx":
     cost_list.append(get_cost)
     unitprice_list.append(unit_price)
 
-Table = pandas.DataFrame(variable_dict)
-Table = Table.set_index('Item')
+price_frame = pandas.DataFrame(variable_dict)
+price_frame = price_frame.set_index('Item')
+
+price_frame = price_frame.rename(columns={'Unit Price': 'U.P',
+                                          'Weight (g)': 'grams'})
 
 pandas.set_option('display.max_columns', None)
 
+add_dollars = ['Cost', 'U.P']
+for item in add_dollars:
+    price_frame[item] = price_frame[item].apply(currency)
+
 print()
-print(Table[['Item', 'Weight', 'Cost',
-             'Unit Price']])
+print(price_frame)
+
+unitprice_list.sort()
+
+print("The cheapest item is:", *unitprice_list[:1])
